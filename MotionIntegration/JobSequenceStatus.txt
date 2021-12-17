@@ -1,0 +1,69 @@
+-----------------------------------------------------------------
+Meteor Motion Integration (MMI) Job Sequence Queue Status Polling
+-----------------------------------------------------------------
+
+TMotionQueueStatus.StatusFlags:
+-------------------------------
+
+                                                   ____________________________________________
+JobMotionQueueStatus_QueueIsStarted    XXX________|                                            |__________XXXXX
+                                                                                                __________
+JobMotionQueueStatus_QueueIsStopped    XXX_____________________________________________________|          XXXXX
+                                          ^       ^                                    ^       ^
+                                          |       |                                    |       |
+                                          |       |                                    |       |
+                            JobSequenceStart      |                       JobSequenceStop(a)   |
+                                          |       |                                    |       |
+                                          |<-***->|                                    |<-***->|
+
+
+*** MetScan will time out with an error if the corresponding status bit change is not seen within 5 seconds, the timeout can be changed using 
+   [Motion] MmiJobSequenceStartTimeoutMs and [Motion] MmiJobSequenceStopTimeoutMs.  A longer timeout may be necessary for the job sequence
+   stop, because a stop command it has to stop any in-progress movement before making the state change.
+    
+
+XXX MetScan starts GetJobSequenceStatus polling immediately after the JobSequenceStart call
+    MetScan halts GetJobSequenceStatus polling after the 'IsStopped' bit is set
+    MetScan ignores the 'IsEnabled' state if the 'IsStopped' bit is set
+
+(a) The 'Stopped' state can be entered after a call to JobSequenceStop from MetScan
+    The 'Stopped' state can also be entered automatically after a queued command completes, if the JobMotionQueueCmd_StopAfterMove bit is set 
+    for the command (in TMotionQueueMoveArgs.ControlFlags)
+
+
+TMotionQueueStatus.PauseCount and TMotionQueueStatus.ResumeCount:
+-----------------------------------------------------------------
+
+Pause/resume can happen multiple times while the job sequence queue is active.
+
+The pause/resume status reporting uses an **always-incrementing** count of the number of times that the queue has transitioned in to pause (PauseCount),
+and an **always-incrementing** count of the number of time that queue has transitioned out of pause (ResumeCount).
+
+This avoids potential timing problems due to reporting latency if a simple On/Off bit is used.
+
+PauseCount      0  0  0  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2 ... etc.
+ResumeCount     0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  2  2  2 ... etc.
+
+                ^        ^                                   ^        ^                    ^        ^                                   ^        ^ 
+                |        | ################################# |        |                    |        | ################################# |        | 
+                |        |                                   |        |                    |        |                                   |        | 
+  JobSequencePause(b)    |                    JobSequenceResume       |      JobSequencePause(b)    |                    JobSequenceResume       | 
+                |        |                                   |        |                    |        |                                   |        |
+                |<-****->|                                   |<-****->|                    |<-****->|                                   |<-****->|
+
+
+*** MetScan will time out with an error if the corresponding increment is not seen within 5 seconds, the timeout can be changed using 
+   [Motion] MmiJobSequenceStartTimeoutMs (used for resume) and [Motion] MmiJobSequenceStopTimeoutMs (used for pause).  A longer timeout may be 
+   necessary for the job sequence pause, because a stop command it has to stop any in-progress movement before making the state change.
+
+### GetJobSequenceStatus polling is suspended from the point where (PauseCount == ResumeCount + 1), until the JobSequenceResume call.
+    During this interval standard MMI commands (e.g. for spitting and maintenance) can be sent.
+
+(b) The 'Paused' state can be entered after a call to JobSequencePause
+    The 'Paused' state can also be entered automatically after a queued command completes, if the JobMotionQueueCmd_PauseAfterMove bit is set 
+    for the command (in TMotionQueueMoveArgs.ControlFlags)
+
+The PauseCount and the ResumeCount should be set to zero when JobSequenceStart is called.
+
+It should always be the case that either (PauseCount == ResumeCount) meaning that the job queue is executing commands, or (PauseCount == ResumeCount + 1) meaning that the job queue is paused.
+

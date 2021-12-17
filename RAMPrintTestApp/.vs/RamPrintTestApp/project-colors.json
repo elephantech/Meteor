@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "ee0d50f6-10c9-435e-bf24-cc5b6bdb2498": {
+      "ProjectGuid": "ee0d50f6-10c9-435e-bf24-cc5b6bdb2498",
+      "DisplayName": "RAMPrintTestApp",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

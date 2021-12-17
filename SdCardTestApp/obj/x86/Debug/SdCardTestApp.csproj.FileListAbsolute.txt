@@ -1,0 +1,3 @@
+G:\マイドライブ\1.WS\Meteor\Bin\SdCardTestApp.exe.config
+G:\マイドライブ\1.WS\Meteor\Bin\SdCardTestApp.exe
+G:\マイドライブ\1.WS\Meteor\Bin\SdCardTestApp.pdb

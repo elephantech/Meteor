@@ -1,0 +1,17 @@
+﻿<Window x:Class="MeteorSwathTestApp.SendPartialImageWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Send Partial Image" Height="179" Width="475" ResizeMode="NoResize"
+        Name="wSendPartialImageWindow">
+    <Grid DataContext="{Binding ElementName=wSendPartialImageWindow}">
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="12,12,0,0" Name="textBlock1" Text="Choose the top and bottom lines of the image to send" VerticalAlignment="Top" />
+        <Slider Height="23" Margin="69,41,86,0" Name="sliderTop" VerticalAlignment="Top" Value="{Binding TopLine}" Minimum="1" Maximum="{Binding NumberOfLines}"/>
+        <TextBox Height="23" HorizontalAlignment="Right" Margin="0,41,12,0" Name="textBox1" VerticalAlignment="Top" Width="68" Text="{Binding TopLine}"/>
+        <Slider Height="23" Margin="69,70,86,0" Name="sliderBottom" VerticalAlignment="Top" Value="{Binding BottomLine}" Minimum="1" Maximum="{Binding NumberOfLines}"/>
+        <TextBox Height="23" HorizontalAlignment="Right" Margin="0,70,12,0" Name="textBox2" VerticalAlignment="Top" Width="68" Text="{Binding BottomLine}"/>
+        <Label Content="Top" Height="28" HorizontalAlignment="Left" Margin="12,41,0,0" Name="label1" VerticalAlignment="Top" />
+        <Label Content="Bottom" Height="28" HorizontalAlignment="Left" Margin="12,65,0,0" Name="label2" VerticalAlignment="Top" />
+        <Button Content="Cancel" Height="23" HorizontalAlignment="Right" Margin="0,0,12,12" Name="buttonCancel" VerticalAlignment="Bottom" Width="75" Click="buttonCancel_Click" />
+        <Button Content="Ok" Height="23" HorizontalAlignment="Right" Margin="0,0,93,12" Name="buttonOk" VerticalAlignment="Bottom" Width="75" Click="buttonOk_Click" />
+    </Grid>
+</Window>

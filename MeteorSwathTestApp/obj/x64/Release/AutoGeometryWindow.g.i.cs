@@ -99,4 +99,87 @@ namespace MeteorSwathTestApp {
         
         #line 32 "..\..\..\AutoGeometryWindow.xaml"
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
-        internal System.Windows.Controls.Check
+        internal System.Windows.Controls.CheckBox checkBoxExactlyEqual;
+        
+        #line default
+        #line hidden
+        
+        private bool _contentLoaded;
+        
+        /// <summary>
+        /// InitializeComponent
+        /// </summary>
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("PresentationBuildTasks", "4.0.0.0")]
+        public void InitializeComponent() {
+            if (_contentLoaded) {
+                return;
+            }
+            _contentLoaded = true;
+            System.Uri resourceLocater = new System.Uri("/MeteorSwathTestApp;component/autogeometrywindow.xaml", System.UriKind.Relative);
+            
+            #line 1 "..\..\..\AutoGeometryWindow.xaml"
+            System.Windows.Application.LoadComponent(this, resourceLocater);
+            
+            #line default
+            #line hidden
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("PresentationBuildTasks", "4.0.0.0")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        internal System.Delegate _CreateDelegate(System.Type delegateType, string handler) {
+            return System.Delegate.CreateDelegate(delegateType, this, handler);
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("PresentationBuildTasks", "4.0.0.0")]
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
+        void System.Windows.Markup.IComponentConnector.Connect(int connectionId, object target) {
+            switch (connectionId)
+            {
+            case 1:
+            this.buttonCancel = ((System.Windows.Controls.Button)(target));
+            
+            #line 7 "..\..\..\AutoGeometryWindow.xaml"
+            this.buttonCancel.Click += new System.Windows.RoutedEventHandler(this.buttonCancel_Click);
+            
+            #line default
+            #line hidden
+            return;
+            case 2:
+            this.buttonOk = ((System.Windows.Controls.Button)(target));
+            
+            #line 8 "..\..\..\AutoGeometryWindow.xaml"
+            this.buttonOk.Click += new System.Windows.RoutedEventHandler(this.buttonOk_Click);
+            
+            #line default
+            #line hidden
+            return;
+            case 3:
+            this.numericEditXInterlace = ((MeteorSwathTestApp.NumericEdit)(target));
+            return;
+            case 4:
+            this.numericEditYInterlace = ((MeteorSwathTestApp.NumericEdit)(target));
+            return;
+            case 5:
+            this.numericEditStitchband = ((MeteorSwathTestApp.NumericEdit)(target));
+            return;
+            case 6:
+            this.numericEditPasses = ((MeteorSwathTestApp.NumericEdit)(target));
+            return;
+            case 7:
+            this.numericEditOverprints = ((MeteorSwathTestApp.NumericEdit)(target));
+            return;
+            case 8:
+            this.checkBoxExactlyEqual = ((System.Windows.Controls.CheckBox)(target));
+            return;
+            }
+            this._contentLoaded = true;
+        }
+    }
+}
+
